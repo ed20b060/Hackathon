@@ -14,13 +14,46 @@ import {
   useColorModeValue,
   Link,
 } from '@chakra-ui/react';
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+} from 'firebase/auth';
 import { useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
+import { auth } from '../firebase-config';
 
 export default function Signin(props) {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const [registerEmail, setRegisterEmail] = useState('');
+  const [registerPassword, setRegisterPassword] = useState('');
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+  const [user, setUser] = useState({});
+  onAuthStateChanged(auth, currentUser => {
+    setUser(currentUser);
+  });
+  const register = async () => {
+    try {
+      const user = await createUserWithEmailAndPassword(
+        auth,
+        registerEmail,
+        registerPassword
+      );
+      console.log(user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const login = async () => {};
+  const logout = async () => {
+    try {
+      await auth.signOut();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Flex
       minH={'100vh'}
@@ -60,12 +93,22 @@ export default function Signin(props) {
             </HStack>
             <FormControl id="email" isRequired>
               <FormLabel>Email address</FormLabel>
-              <Input type="email" />
+              <Input
+                type="email"
+                onChange={event => {
+                  setRegisterEmail(event.target.value);
+                }}
+              />
             </FormControl>
             <FormControl id="password" isRequired>
               <FormLabel>Password</FormLabel>
               <InputGroup>
-                <Input type={showPassword ? 'text' : 'password'} />
+                <Input
+                  type={showPassword ? 'text' : 'password'}
+                  onChange={event => {
+                    setRegisterPassword(event.target.value);
+                  }}
+                />
                 <InputRightElement h={'full'}>
                   <Button
                     variant={'ghost'}
@@ -93,6 +136,30 @@ export default function Signin(props) {
                 }}
               >
                 Sign Up
+              </Button>
+              <Button
+                loadingText="Submitting"
+                size="lg"
+                bg={'blue.400'}
+                color={'white'}
+                _hover={{
+                  bg: 'blue.500',
+                }}
+                onClick={register}
+              >
+                Create user
+              </Button>
+              <Button
+                loadingText="Submitting"
+                size="lg"
+                bg={'blue.400'}
+                color={'white'}
+                _hover={{
+                  bg: 'blue.500',
+                }}
+                onClick={logout}
+              >
+                logout
               </Button>
             </Stack>
             <Stack pt={6}>
