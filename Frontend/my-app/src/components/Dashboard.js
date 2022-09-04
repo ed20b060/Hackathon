@@ -62,59 +62,23 @@ export default function Dashboard(props) {
             >
               Create Project
             </Button>
+            <Button
+              colorScheme={'green'}
+              bg={'green.400'}
+              rounded={'full'}
+              px={6}
+              _hover={{
+                bg: 'green.500',
+              }}
+              onClick={() => {
+                navigate('/project2');
+                props.onClickStore();
+              }}
+            >
+              view projects
+            </Button>
           </Stack>
         </Stack>
-        {cards.map(menuOption => (
-          <>
-            <Box
-              maxW={'3300px'}
-              w={'full'}
-              boxShadow={'2xl'}
-              rounded={'md'}
-              overflow={'hidden'}
-            >
-              <Stack textAlign={'center'} p={1} align={'center'}>
-                <Text
-                  fontSize={'sm'}
-                  fontWeight={500}
-                  p={2}
-                  px={3}
-                  color={'green.500'}
-                  rounded={'full'}
-                >
-                  {menuOption}
-                </Text>
-                <Stack direction={'row'} align={'center'} justify={'center'}>
-                  <Text fontSize={'3xl'}>$</Text>
-                  <Text fontSize={'6xl'} fontWeight={800}>
-                    79
-                  </Text>
-                  <Text color={'gray.500'}>/month</Text>
-                </Stack>
-              </Stack>
-
-              <Box px={1} py={5}>
-                <Button
-                  mt={10}
-                  w={'full'}
-                  bg={'green.400'}
-                  color={'white'}
-                  rounded={'xl'}
-                  boxShadow={'0 5px 20px 0px rgb(72 187 120 / 43%)'}
-                  _hover={{
-                    bg: 'green.500',
-                  }}
-                  _focus={{
-                    bg: 'green.500',
-                  }}
-                >
-                  Go to project
-                </Button>
-              </Box>
-            </Box>
-            <br />
-          </>
-        ))}
       </Container>
     </>
   );
