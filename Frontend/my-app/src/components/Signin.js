@@ -21,7 +21,7 @@ import {
 import { useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
-import { auth } from '../firebase-config';
+import { auth } from '../firebase-config2';
 
 export default function Signin(props) {
   const [showPassword, setShowPassword] = useState(false);
@@ -31,9 +31,9 @@ export default function Signin(props) {
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   const [user, setUser] = useState({});
-  onAuthStateChanged(auth, currentUser => {
-    setUser(currentUser);
-  });
+  // auth.onAuthStateChanged(currentUser => {
+  //   setUser(currentUser);
+  // });
   const register = async () => {
     try {
       const user = await createUserWithEmailAndPassword(
@@ -46,14 +46,14 @@ export default function Signin(props) {
       console.log(error);
     }
   };
-  const login = async () => {};
-  const logout = async () => {
-    try {
-      await auth.signOut();
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const login = async () => {};
+  // const logout = async () => {
+  //   try {
+  //     await auth.signOut();
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   return (
     <Flex
       minH={'100vh'}
@@ -157,7 +157,7 @@ export default function Signin(props) {
                 _hover={{
                   bg: 'blue.500',
                 }}
-                onClick={logout}
+                // onClick={logout}
               >
                 logout
               </Button>

@@ -12,8 +12,16 @@ import {
   Text,
   useColorModeValue,
 } from '@chakra-ui/react';
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+} from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { auth } from '../firebase-config2';
 export default function Login(props) {
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
   const navigate = useNavigate();
   return (
     <Flex
@@ -38,11 +46,21 @@ export default function Login(props) {
           <Stack spacing={4}>
             <FormControl id="email">
               <FormLabel>Email address</FormLabel>
-              <Input type="email" />
+              <Input
+                type="email"
+                onChange={event => {
+                  setLoginEmail(event.target.value);
+                }}
+              />
             </FormControl>
             <FormControl id="password">
               <FormLabel>Password</FormLabel>
-              <Input type="password" />
+              <Input
+                type="password"
+                onChange={event => {
+                  setLoginPassword(event.target.value);
+                }}
+              />
             </FormControl>
             <Stack spacing={10}>
               <Stack

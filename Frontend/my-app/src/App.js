@@ -16,6 +16,7 @@ import Signin from './components/Signin';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import Project from './components/Project';
+import Project2 from './components/Project2';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/project" element={<Project />} />
+          <Route path="/project2" element={<Project2 />} />
           {/* <Route path="/cart" element={<Cartpage />} />
           <Route path="/sign-in" element={<SignPage />} />  */}
         </Routes>
